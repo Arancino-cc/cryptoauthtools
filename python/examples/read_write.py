@@ -59,6 +59,7 @@ def read_write(iface='hid', device='ecc', **kwargs):
     # Basic Raspberry Pi I2C check
     if 'i2c' == iface and check_if_rpi():
         cfg.cfg.atcai2c.bus = 1
+        cfg.cfg.atcai2c.slave_address = 0xb0
 
     # Initialize the stack
     assert atcab_init(cfg) == ATCA_SUCCESS

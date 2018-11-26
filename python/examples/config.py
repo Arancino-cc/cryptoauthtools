@@ -79,6 +79,7 @@ def configure_device(iface='hid', device='ecc', i2c_addr=None, keygen=True, **kw
     # Basic Raspberry Pi I2C check
     if 'i2c' == iface and check_if_rpi():
         cfg.cfg.atcai2c.bus = 1
+        cfg.cfg.atcai2c.slave_address = 0xb0
 
     # Initialize the stack
     assert atcab_init(cfg) == ATCA_SUCCESS
@@ -123,7 +124,7 @@ def configure_device(iface='hid', device='ecc', i2c_addr=None, keygen=True, **kw
     if 'ecc' == device and not config_zone_lock:
         if i2c_addr is None:
             i2c_addr = 0xB0
-        if 0xC0 != i2c_addr:
+        if 0xB0 != i2c_addr:
             print('\n    The AT88CK590 Kit does not support changing the I2C addresses of devices.')
             print('    If you are not using an AT88CK590 kit you may continue without errors')
             print('    otherwise exit and specify a compatible (0xC0) address.')

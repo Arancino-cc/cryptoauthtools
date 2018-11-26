@@ -51,6 +51,7 @@ def init_device(iface='hid', slot=0, **kwargs):
     # Basic Raspberry Pi I2C check
     if 'i2c' == iface and check_if_rpi():
         cfg.cfg.atcai2c.bus = 1
+        cfg.cfg.atcai2c.slave_address = 0xb0
 
     # Initialize the stack
     assert atcab_init(cfg) == ATCA_SUCCESS
