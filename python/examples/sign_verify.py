@@ -51,7 +51,7 @@ def init_device(iface='hid', slot=0, **kwargs):
     # Basic Raspberry Pi I2C check
     if 'i2c' == iface and check_if_rpi():
         cfg.cfg.atcai2c.bus = 1
-        cfg.cfg.atcai2c.slave_address = 0xb0
+        cfg.cfg.atcai2c.slave_address = args.i2c
 
     # Initialize the stack
     assert atcab_init(cfg) == ATCA_SUCCESS
@@ -126,7 +126,11 @@ if __name__ == '__main__':
     parser.add_argument('-k', '--key', default=0, type=int, help='Key Id (Slot number) device private key for signing')
     parser.add_argument('-s', '--signer', choices=['device', 'host'], default='device', help='Signature will be performed by the device or host (default: device)')
     parser.add_argument('-v', '--verifier', choices=['device', 'host'], default='host', help='Verify will be performed by the device or host (default: host)')
+    parser.add_argument('--i2c', help='I2C Address (in hex)')
     args = parser.parse_args()
+
+    if args.i2c is not None:
+        args.i2c = int(args.i2c, 16)
 
     print('\nSign/Verify Example\n')
 

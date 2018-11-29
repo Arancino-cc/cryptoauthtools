@@ -103,6 +103,5 @@ if __name__ == '__main__':
     if args.i2c is not None:
         args.i2c = int(args.i2c, 16)
 
-
     info(args.iface, args.device, **parse_interface_params(args.params))
     print('\nDone')
