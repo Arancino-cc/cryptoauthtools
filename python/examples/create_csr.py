@@ -103,7 +103,7 @@ def info(iface='hid', device='ecc', **kwargs):
     # Basic Raspberry Pi I2C check
     if 'i2c' == iface and check_if_rpi():
         cfg.cfg.atcai2c.bus = 1
-        cfg.cfg.atcai2c.slave_address = 0xb0
+        cfg.cfg.atcai2c.slave_address = args.i2c
 
     # Initialize the stack
     assert atcab_init(cfg) == ATCA_SUCCESS
@@ -168,7 +168,11 @@ def info(iface='hid', device='ecc', **kwargs):
 
 if __name__ == '__main__':
     parser = setup_example_runner(__file__)
+    parser.add_argument('--i2c', help='I2C Address (in hex)')
     args = parser.parse_args()
+
+    if args.i2c is not None:
+        args.i2c = int(args.i2c, 16)
 
     info(args.iface, args.device, **parse_interface_params(args.params))
     print('\nDone')
