@@ -208,6 +208,6 @@ if __name__ == '__main__':
     if args.i2c is not None:
         args.i2c = int(args.i2c, 16)
 
-    print('\nConfiguring the device with an example configuration')
+    print('\nConfiguring the device with an example configuration: {}',args.i2c)
     configure_device(args.iface, args.device, args.i2c, args.gen, **parse_interface_params(args.params))
     print('\nDevice Successfully Configured')
